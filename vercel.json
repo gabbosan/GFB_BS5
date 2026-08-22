@@ -7,6 +7,5 @@
       "config": { "distDir": "dist" }
     }
   ],
-  "routes": [],
   "outputDirectory": "dist"
 }
