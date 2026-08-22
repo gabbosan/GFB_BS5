@@ -1,0 +1,12 @@
+{
+  "name": "gfb",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "esbuild script.js --bundle --minify --sourcemap --outfile=dist/bundle.js",
+    "prepare-dist": "node -e \"const fs=require('fs'); if(!fs.existsSync('dist')) fs.mkdirSync('dist');\""
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
