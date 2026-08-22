@@ -91,14 +91,16 @@ a, button {
 
 .nav-link {
   color: var(--color-accent-cyan) !important;
-  font-size: calc(1.1rem * var(--font-scale));
+  font-size: calc(1.4rem * var(--font-scale));
   padding-left: 1rem !important;
   padding-right: 1rem !important;
   transition: color 0.3s ease;
+  text-align: center;
 }
 
 .nav-link:hover,
 .nav-link:focus {
+  background-color: rgba(47, 52, 52, 0.378) !important;
   color: var(--color-accent-purple) !important;
 }
 
@@ -113,6 +115,26 @@ a, button {
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 208, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler .custom-toggler {
+  background-image: none;
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: calc(1rem * var(--font-scale));
+  font-weight: bold;
+  color: var(--color-accent-cyan);
+  letter-spacing: 0em;
+  display: block;
+  line-height: 0.4;
+  margin: 0.08rem 0;
+}
+
+.navbar-toggler {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.05rem;
 }
 
 /* ============================================
@@ -337,9 +359,13 @@ footer {
 
 .back-to-top {
   color: var(--color-accent-cyan);
-  font-size: calc(2rem * var(--font-scale));
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-weight: bold;
+  font-size: calc(6rem * var(--font-scale));
   display: inline-block;
   transition: color 0.3s ease, transform 0.3s ease;
+  border-radius: 0;
+  
 }
 
 .back-to-top:hover {
