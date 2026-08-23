@@ -384,14 +384,14 @@ footer {
   background-size: cover;
   background-position: center;
   box-shadow: 0px 0px 25px rgba(0,0,0, 0.5);
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .back-to-top {
   color: var(--color-accent-cyan);
   font-family: 'Pathway Gothic One', sans-serif;
   font-weight: bold;
-  font-size: calc(6rem * var(--font-scale));
+  font-size: calc(4rem * var(--font-scale));
   display: inline-block;
   transition: color 0.3s ease, transform 0.3s ease;
   border-radius: 0;
