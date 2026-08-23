@@ -90,7 +90,13 @@ a, button {
 }
 
 .navbar-collapse {
-  background-color: rgba(0, 0, 0, 0.6) !important;
+  background-color: transparent;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
 }
 
 .navbar-brand {
