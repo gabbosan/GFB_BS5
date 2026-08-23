@@ -15,6 +15,11 @@
     <link rel="shortcut icon" href="img/favicon-256.png">
 
     <link rel="canonical" href="https://gfbbs5-mauve.vercel.app/">
+    <script>
+        if (window.location.hostname === 'gabrielabosan.vercel.app') {
+            window.location.replace('https://gfbbs5-mauve.vercel.app' + window.location.pathname + window.location.search + window.location.hash);
+        }
+    </script>
     <meta name="theme-color" content="#000000">
     <meta name="msapplication-TileColor" content="#000000">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
