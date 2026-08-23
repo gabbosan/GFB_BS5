@@ -69,6 +69,7 @@ a, button {
    ============================================ */
 .navbar {
   background-color: rgba(0, 0, 0, 0.6) !important;
+  font-family: 'Pathway Gothic One', sans-serif;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: none;
@@ -89,7 +90,7 @@ a, button {
 }
 
 .navbar-collapse {
-  background-color: rgba(0, 0, 0, 0.85) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .navbar-brand {
@@ -104,6 +105,7 @@ a, button {
 
 .nav-link {
   color: var(--color-accent-cyan) !important;
+  font-family: 'Pathway Gothic One', sans-serif;
   font-size: calc(1.2rem * var(--font-scale));
   padding-left: 1rem !important;
   padding-right: 1rem !important;
