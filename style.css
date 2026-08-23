@@ -275,12 +275,12 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .content-narrow { width: 70%; }
+  .content-narrow { width: 80%; }
   .jumbotron-content { width: 70%; }
 }
 
 @media (max-width: 576px) {
-  .content-narrow { width: 70%; }
+  .content-narrow { width: 80%; }
   .jumbotron-content { width: 70%; }
 }
 
