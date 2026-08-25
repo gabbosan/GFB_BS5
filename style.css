@@ -1,4 +1,16 @@
 /* ============================================
+   FONTE SELF-HOSTED
+   Uso local para reduzir bloqueio de rede e melhorar LCP.
+   ============================================ */
+@font-face {
+  font-family: 'Pathway Gothic One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/pathwaygothicone.woff2') format('woff2');
+}
+
+/* ============================================
    VARIÁVEIS GLOBAIS
    Altere --font-scale para aumentar/diminuir
    TODAS as fontes do site proporcionalmente.
