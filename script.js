@@ -114,9 +114,9 @@
   });
 
   /* =====================================================
-     5. SPOTLIGHT nos cards bento (segue o mouse)
+     5. SPOTLIGHT nos cards Bento e Projetos (segue o mouse)
      ===================================================== */
-  $$('.bento-card').forEach((card) => {
+  $$('.bento-card, .project-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
