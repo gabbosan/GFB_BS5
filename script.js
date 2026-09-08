@@ -127,7 +127,7 @@
   /* =====================================================
      6. LIGHTBOX da galeria
      ===================================================== */
-  const galleryImgs = $$('.gallery img');
+  const galleryImgs = $$('.gallery img, .gallery-project img');
   const lightbox = $('#lightbox');
   const lbImg = $('.lb-img', lightbox);
   const lbCounter = $('.lb-counter', lightbox);
