@@ -1,139 +1,187 @@
-/* ============================================
-   SMOOTH SCROLL + FECHAR MENU MOBILE
-   ============================================ */
-(function() {
-    'use strict';
+/* =====================================================
+   GFB — Portfólio 2026
+   IntersectionObserver · Lightbox · Menu · Progress bar
+   ===================================================== */
+(() => {
+  'use strict';
 
-    // Smooth scroll (compatível com todos navegadores) - animação manual tipo jQuery.animate
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-        anchor.addEventListener('click', function(e) {
-            var targetId = this.getAttribute('href');
-            if (!targetId || targetId === '#') return;
+  document.documentElement.classList.add('js');
 
-            var targetEl = document.querySelector(targetId);
-            if (!targetEl) return;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
-            e.preventDefault();
+  /* ---------- Stagger: converte data-delay em variável CSS ---------- */
+  $$('.reveal[data-delay]').forEach((el) => {
+    el.style.setProperty('--d', el.dataset.delay);
+  });
 
-            // Fecha menu mobile se estiver aberto
-            var navCollapse = document.getElementById('navMenu');
-            if (navCollapse) {
-                var bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-                if (bsCollapse && navCollapse.classList.contains('show')) {
-                    bsCollapse.hide();
-                }
-            }
+  /* =====================================================
+     1. REVEAL ON SCROLL
+     ===================================================== */
+  const revealEls = $$('.reveal');
 
-            var nav = document.querySelector('.navbar');
-            var navHeight = nav ? nav.offsetHeight : 70;
-            var start = window.pageYOffset;
-            var targetY = targetEl.getBoundingClientRect().top + start - navHeight;
-            var duration = 700; // ms
-            var startTime = null;
-
-            function easeInOutQuad(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
-
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                var time = timestamp - startTime;
-                var progress = Math.min(time / duration, 1);
-                var eased = easeInOutQuad(progress);
-                window.scrollTo(0, Math.round(start + (targetY - start) * eased));
-                if (time < duration) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    // Atualiza URL sem criar foco indesejado
-                    if (history && history.replaceState) {
-                        try { history.replaceState(null, null, targetId); } catch (err) {}
-                    }
-                    try {
-                        if (window.getSelection) window.getSelection().removeAllRanges();
-                        else if (document.selection) document.selection.empty();
-                    } catch (err) {}
-                }
-            }
-
-            window.requestAnimationFrame(step);
-        });
-    });
-
-    /* ============================================
-       ANIMAÇÃO SLIDE ON SCROLL
-       ============================================ */
-    function handleScrollAnimations() {
-        var elements = document.querySelectorAll('.slideanim, .slideanim-delay');
-        var windowHeight = window.innerHeight;
-        var triggerPoint = windowHeight * 0.88;
-
-        elements.forEach(function(el) {
-            var pos = el.getBoundingClientRect().top;
-            if (pos < triggerPoint) {
-                if (el.classList.contains('slideanim-delay')) {
-                    el.classList.add('slide-delay');
-                } else {
-                    el.classList.add('slide');
-                }
-            }
-        });
-    }
-
-    window.addEventListener('load', handleScrollAnimations);
-
-    /* ============================================
-       FECHAR MENU AO CLICAR FORA (mobile)
-       ============================================ */
-    document.addEventListener('click', function(e) {
-        var navMenu = document.getElementById('navMenu');
-        var navbar = document.querySelector('.navbar');
-
-        if (navMenu && navMenu.classList.contains('show')) {
-            if (!navbar.contains(e.target)) {
-                var bsCollapse = bootstrap.Collapse.getInstance(navMenu);
-                if (bsCollapse) {
-                    bsCollapse.hide();
-                }
-            }
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
         }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+
+    revealEls.forEach((el) => io.observe(el));
+  }
+
+  /* =====================================================
+     2. NAV: sombra ao rolar + progress bar
+     ===================================================== */
+  const pill = $('.nav-pill');
+  const progress = $('.progress-bar');
+  let ticking = false;
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      pill.classList.toggle('scrolled', window.scrollY > 30);
+
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      ticking = false;
     });
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-    /* ============================================
-       HIGHLIGHT DO MENU CONFORME SCROLL
-       ============================================ */
-    var sections = document.querySelectorAll('section[id]');
-    var navLinks = document.querySelectorAll('.nav-link');
+  /* =====================================================
+     3. HIGHLIGHT DO LINK ATIVO
+     ===================================================== */
+  const navLinks = $$('.nav-link');
+  const sections = $$('section[id]');
 
-    function highlightNav() {
-        var scrollPos = window.scrollY + 100;
-        var navHeight = document.querySelector('.navbar').offsetHeight || 70;
-        scrollPos += navHeight;
+  const setActive = (id) => {
+    navLinks.forEach((link) =>
+      link.classList.toggle('active', link.getAttribute('href') === `#${id}`)
+    );
+  };
 
-        sections.forEach(function(section) {
-            var top = section.offsetTop;
-            var height = section.offsetHeight;
-            var id = section.getAttribute('id');
+  if ('IntersectionObserver' in window) {
+    const navIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.isIntersecting && setActive(entry.target.id));
+    }, { rootMargin: '-40% 0px -55% 0px' });
 
-            if (scrollPos >= top && scrollPos < top + height) {
-                navLinks.forEach(function(link) {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + id) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
+    sections.forEach((section) => navIO.observe(section));
+  }
+
+  /* =====================================================
+     4. MENU MOBILE FULLSCREEN
+     ===================================================== */
+  const burger = $('.nav-burger');
+  const overlay = $('#menuOverlay');
+
+  const closeMenu = () => {
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Abrir menu');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  burger.addEventListener('click', () => {
+    const isOpen = burger.getAttribute('aria-expanded') === 'true';
+    if (isOpen) return closeMenu();
+
+    burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', 'Fechar menu');
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+
+  /* Fecha ao clicar em qualquer link do overlay */
+  $$('#menuOverlay a').forEach((link) => link.addEventListener('click', closeMenu));
+
+  /* ESC fecha menu e lightbox */
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+      closeLightbox();
     }
+  });
 
-    // Agrupa os handlers de scroll num único rAF por frame para não travar a animação suave
-    var scrollTicking = false;
-    function onScroll() {
-        if (scrollTicking) return;
-        scrollTicking = true;
-        window.requestAnimationFrame(function() {
-            handleScrollAnimations();
-            highlightNav();
-            scrollTicking = false;
-        });
-    }
+  /* =====================================================
+     5. SPOTLIGHT nos cards bento (segue o mouse)
+     ===================================================== */
+  $$('.bento-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+    });
+  });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+  /* =====================================================
+     6. LIGHTBOX da galeria
+     ===================================================== */
+  const galleryImgs = $$('.gallery img');
+  const lightbox = $('#lightbox');
+  const lbImg = $('.lb-img', lightbox);
+  const lbCounter = $('.lb-counter', lightbox);
+  let current = 0;
+  let lastFocus = null;
+
+  const render = () => {
+    lbImg.src = galleryImgs[current].src;
+    lbCounter.textContent = `${current + 1} / ${galleryImgs.length}`;
+  };
+
+  const openLightbox = (index) => {
+    current = index;
+    lastFocus = document.activeElement;
+    render();
+    lightbox.hidden = false;
+    requestAnimationFrame(() => lightbox.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+    $('.lb-close', lightbox).focus();
+  };
+
+  const closeLightbox = () => {
+    if (lightbox.hidden) return;
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      lightbox.hidden = true;
+      lbImg.src = '';
+      lastFocus?.focus();
+    }, 350);
+  };
+
+  const step = (dir) => {
+    current = (current + dir + galleryImgs.length) % galleryImgs.length;
+    render();
+  };
+
+  galleryImgs.forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(i));
+  });
+
+  $('.lb-close', lightbox).addEventListener('click', closeLightbox);
+  $('.lb-prev', lightbox).addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+  $('.lb-next', lightbox).addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+
+  /* Clique no fundo fecha */
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  /* Setas do teclado */
+  addEventListener('keydown', (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
 })();
