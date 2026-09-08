@@ -643,6 +643,81 @@ img { display: block; max-width: 100%; }
 }
 .bento-card p { color: var(--muted); }
 
+.project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+}
+
+.project-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(380px circle at 10% 20%, rgba(132, 255, 0, 0.1), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(132, 255, 0, 0.4);
+  background: rgba(255,255,255,0.03);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-tag {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.project-card h3 {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin-bottom: 0.9rem;
+}
+
+.project-card p {
+  position: relative;
+  max-width: 62ch;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.project-card a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.project-card a:hover {
+  color: var(--green);
+  transform: translateX(4px);
+}
+
 /* ---------- Contato ---------- */
 .contact { border-top: 1px solid var(--line); }
 
