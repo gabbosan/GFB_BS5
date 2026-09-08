@@ -398,8 +398,8 @@ img { display: block; max-width: 100%; }
   padding-block: 1.1rem;
   overflow: hidden;
   background: var(--bg-soft);
-  max-width: 100vw;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
 }
 .marquee-track {
   display: flex;
@@ -428,7 +428,7 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 576px) {
   .marquee {
-    width: 100vw;
+    width: 100%;
   }
   .marquee-track {
     animation-duration: 18s;
@@ -456,6 +456,9 @@ img { display: block; max-width: 100%; }
 }
 
 .section-title {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(2rem, 5.5vw, 4rem);
@@ -800,7 +803,7 @@ img { display: block; max-width: 100%; }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem 1.1rem;
   align-items: start;
 }
