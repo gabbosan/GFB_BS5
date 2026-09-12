@@ -239,6 +239,8 @@ img { display: block; max-width: 100%; }
 .menu-overlay .menu-item[data-delay="3"] { --i: 3; }
 .menu-overlay .menu-item[data-delay="4"] { --i: 4; }
 .menu-overlay .menu-item[data-delay="5"] { --i: 5; }
+.menu-overlay .menu-item[data-delay="6"] { --i: 6; }
+.menu-overlay .menu-item[data-delay="7"] { --i: 7; }
 .menu-overlay.open a { transform: translateY(0); }
 .menu-overlay a:hover { color: var(--green); }
 
