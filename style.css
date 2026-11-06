@@ -13,7 +13,7 @@
 
   --green: #84ff00;
   --cyan: #00ffd0;
-  --magenta: #dd00ff;
+  --magenta: #ff00ea;
   --purple: #7700ff;
 
   --font-display: 'Syne', 'Arial Narrow', sans-serif;
@@ -137,7 +137,7 @@ img { display: block; max-width: 100%; }
   font-size: 1.3rem;
   letter-spacing: 0.05em;
 }
-.nav-brand .dot { color: var(--green); }
+.nav-brand .dot { color: var(--green); transform: scale(1); }
 
 .nav-list {
   display: flex;
@@ -327,6 +327,7 @@ img { display: block; max-width: 100%; }
   justify-content: space-between;
   gap: 3rem;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .hero-desc {
@@ -364,8 +365,9 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase;
 }
 .badge-arrow {
-  font-size: 1.6rem;
-  color: var(--green);
+  font-weight: 800;
+  font-size: 3rem;
+  color: var(--magenta);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -402,6 +404,7 @@ img { display: block; max-width: 100%; }
   background: var(--bg-soft);
   width: 100%;
   max-width: 100%;
+  
 }
 .marquee-track {
   display: flex;
