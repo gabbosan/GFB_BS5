@@ -50,7 +50,9 @@
       pill.classList.toggle('scrolled', window.scrollY > 30);
 
       const max = document.documentElement.scrollHeight - innerHeight;
-      progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      const ratio = max > 0 ? window.scrollY / max : 0;
+      progress.style.clipPath = `inset(0 ${100 - ratio * 100}% 0 0 round 99px)`;
+      document.documentElement.style.setProperty('--scroll-ratio', ratio);
       ticking = false;
     });
   };
@@ -131,11 +133,23 @@
   const lightbox = $('#lightbox');
   const lbImg = $('.lb-img', lightbox);
   const lbCounter = $('.lb-counter', lightbox);
+  const headings = $$('h2, h3');
   let current = 0;
   let lastFocus = null;
 
+  /* Texto alternativo: título mais próximo + posição dentro do bloco */
+  const altFor = (img) => {
+    const group = $$('img', img.parentElement);
+    let label = '';
+    headings.forEach((h) => {
+      if (h.compareDocumentPosition(img) & Node.DOCUMENT_POSITION_FOLLOWING) label = h.textContent.trim();
+    });
+    return `${label}, imagem ${group.indexOf(img) + 1} de ${group.length}`;
+  };
+
   const render = () => {
     lbImg.src = galleryImgs[current].src;
+    lbImg.alt = galleryImgs[current].alt;
     lbCounter.textContent = `${current + 1} / ${galleryImgs.length}`;
   };
 
@@ -166,7 +180,16 @@
   };
 
   galleryImgs.forEach((img, i) => {
+    img.alt = altFor(img);
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
     img.addEventListener('click', () => openLightbox(i));
+    img.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(i);
+      }
+    });
   });
 
   $('.lb-close', lightbox).addEventListener('click', closeLightbox);

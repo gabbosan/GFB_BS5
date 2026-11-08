@@ -103,7 +103,7 @@
         </section>
 
         <!-- ============ MARQUEE ============ -->
-        <div class="marquee" aria-hidden="true">
+        <div class="marquee" id="manifesto" aria-hidden="true">
             <div class="marquee-track">
                 <span>Moda — Web — Ilustração — Conteúdo — Curadoria — Branding — Stationary — Marketing — &nbsp;</span>
                 <span>Branding — Stationary — Marketing — Moda — Web — Ilustração — Conteúdo — Curadoria — &nbsp;</span>
@@ -111,7 +111,7 @@
         </div>
 
         <!-- ============ SOBRE ============ -->
-        <section class="section" id="manifesto" aria-labelledby="sobre-title">
+        <section class="section" aria-labelledby="sobre-title">
             <div class="container">
                 <header class="section-head reveal">
                     <span class="section-label">01 — Criatividade sem rótulo</span>
@@ -288,7 +288,7 @@
                         <p>Projeto de comunicação visual e experiência digital para marca com foco em presença online, identidade e conversão.</p>
                 
 
-                        <a href="https://aquifrotas.vercel.app/" target="_blank" rel="noopener noreferrer">Ver projeto <span aria-hidden="true">↗</span></a>
+                        <a href="https://aquifrotas.vercel.app/" target="_blank" rel="noopener noreferrer">Ver projeto<span class="sr-only"> Aqui Frotas (abre em nova aba)</span> <span aria-hidden="true">↗</span></a>
                     </article>
                      
                     <article class="project-card reveal">
@@ -313,9 +313,8 @@
                         <p>Aplicativo web que combina catálogo de produtos com comunicação em tempo real entre fornecedores e clientes. Permite pedidos e orçamentos instantâneos via chat, utilizando WebSockets para sincronização imediata. Desenvolvido em React (front-end), Node.js (back-end) e Socket.io (tempo real).</p>
                         <p>Este projeto está disponível apenas em ambiente local. Caso tenha interesse em acessá-lo em tempo real, posso disponibilizar mediante contato.</p>
 
-                        <a href="https://unify-creamer-draw.ngrok-free.dev/" target="_blank" rel="noopener noreferrer">Acessar Button_Catálogo <span aria-hidden="true">↗</span></a>
-                        <a href="https://unify-creamer-draw.ngrok-free.dev/?fornecedor" target="_blank" rel="noopener noreferrer">Acessar Button_Fornecedor <span aria-hidden="true">↗</span></a>
-<p></p>
+                        <a href="https://unify-creamer-draw.ngrok-free.dev/" target="_blank" rel="noopener noreferrer">Acessar Button_Catálogo<span class="sr-only"> (abre em nova aba)</span> <span aria-hidden="true">↗</span></a>
+                        <a href="https://unify-creamer-draw.ngrok-free.dev/?fornecedor" target="_blank" rel="noopener noreferrer">Acessar Button_Fornecedor<span class="sr-only"> (abre em nova aba)</span> <span aria-hidden="true">↗</span></a>
                     <div class="gallery-project">
                         <img class="reveal" src="img/BUTTONCHAT01.png" alt="" loading="lazy" decoding="async">
                         <img class="reveal" src="img/F01.png" alt="" loading="lazy" decoding="async">
@@ -344,7 +343,7 @@
                         <img class="reveal" src="img/016.jpg" alt="" loading="lazy" decoding="async">
                         <img class="reveal" src="img/018.jpg" alt="" loading="lazy" decoding="async">
                     </div>  
-                    <p><br></p>
+                    
                       
                         <h3>Logos e Ícones</h3>
                         <p>Proposta grafica para identidade visual.</p>
@@ -459,7 +458,7 @@
                 </header>
                 <h2 class="contact-title reveal" id="contato-title">
                     <a href="https://api.whatsapp.com/send?phone=5541984546978" target="_blank" rel="noopener noreferrer">
-                        + ping_wpp <span class="arrow">»</span>
+                        <span class="sr-only">Chamar no WhatsApp </span>+ ping_wpp <span class="arrow" aria-hidden="true">»</span><span class="sr-only"> (abre em nova aba)</span>
                     </a>
                 </h2>
                 <div class="contact-info reveal">
@@ -498,11 +497,10 @@
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
         
-           <div class="container footer-inner">
-            <p></p>
-            <a class="back-to-top" href="#topo" aria-label="Voltar ao topo">Voltar <span class="back-to-top">Δ</span>ao Topo</a>
-           </div> <br><br>
-           <div class="container footer-inner">
+            <div class="container footer-inner">
+            <a class="back-to-top" href="#topo" aria-label="Voltar ao topo" title="Voltar ao topo"><span class="arrow" aria-hidden="true">»</span></a>
+           </div>
+           <div class="container footer-inner footer-split">
            <p class="footer-copy">© 2026 Todos os direitos reservados.</p>
             <p class="footer-copy">Gabriela Freitas Bosan</p>
         </div>
