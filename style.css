@@ -905,7 +905,7 @@ img { display: block; max-width: 100%; }
 }
 .footer-split { justify-content: space-between; }
 .footer-copy { color: var(--muted); font-size: 0.8rem; }
-.back-to-top {
+.back-to-top, .back-to-top:hover {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 800;
@@ -914,17 +914,29 @@ img { display: block; max-width: 100%; }
   user-select: none;
   transition: transform 0.35s var(--ease);
 }
-.back-to-top:hover {  }
+
 .back-to-top .arrow {
   display: inline-block;
   color: transparent;
-  background: linear-gradient(230deg, var(--green), var(--green), var(--cyan), var(--magenta), var(--purple));
+  background: linear-gradient(230deg, var(--purple), var(--magenta), var(--cyan), var(--magenta), var(--purple));
   -webkit-background-clip: text;
   background-clip: text;
   transform: rotate(-90deg);
   transition: transform 0.35s var(--ease);
 }
-.back-to-top:hover .arrow { transform: translateY(-12px) rotate(-90deg); }
+.back-to-top:hover .arrow { 
+  transform: translateY(-12px) rotate(-90deg);
+  color: transparent;
+  background: linear-gradient(230deg, var(--green), var(--green), var(--cyan), var(--magenta), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+
+
+}
+
+
+
+
 /* ---------- Lightbox ---------- */
 .lightbox {
   position: fixed;
